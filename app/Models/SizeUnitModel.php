@@ -5,21 +5,21 @@ namespace App\Models;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
 
-class BillDetailModel extends Model
+class SizeUnitModel extends Model
 {
     protected $db;
-    protected $table      = 'bill_detail';
+    protected $table      = 'size_unit';
     protected $builder;
 
-    protected $primaryKey = 'bill_detail_id';
+    protected $primaryKey = 'size_unit_code';
 
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['bill_detail_id', 'count', 'price', 'status', 'bill_id', 'food_id', 'size_unit_code', 'note' ];
-    protected $fields = 'bill_detail_id, count, price, status, bill_id, food_id, size_unit_code, note';
+    protected $allowedFields = ['size', 'unit_id', 'size_unit_code', 'description'];
+    protected $fields = 'size, unit_id, size_unit_code, description';
 
     private $_insertBatch;
 
@@ -42,10 +42,12 @@ class BillDetailModel extends Model
         return $this->builder->countAll();
     }
 
-    public function readAll() 
+    public function readAll($col = null) 
     {
         // get: Lấy tất cả thông tin liên quan truy vấn database
         // getResult: trả về kết quả truy vấn
+        if ($col != null) 
+            $this->builder->orderBy($col, 'asc');
         return $this->builder->select($this->fields)->get()->getResult();
     }
 

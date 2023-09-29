@@ -13,25 +13,25 @@
     <title>Babana Admin</title>
 
     <!-- Fontfaces CSS-->
-    <link href="frondend/css/font-face.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="frontend/css/font-face.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
     <!-- Bootstrap CSS-->
-    <link href="frondend/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
-    <link href="frondend/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="frondend/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="frontend/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="frondend/css/theme.css" rel="stylesheet" media="all">
+    <link href="frontend/css/theme.css" rel="stylesheet" media="all">
 
     <!-- dtmlx 8 -->
 
@@ -59,14 +59,14 @@
             <div class="section__content section__content--p35">
                 <div class="header3-wrap">
                     <div class="header__logo">
-                        <a href="frondend/#">
-                            <img src="frondend/images/icon/logo-white.png" alt="CoolAdmin" />
+                        <a href="frontend/#">
+                            <img src="frontend/images/icon/logo-white.png" alt="CoolAdmin" />
                         </a>
                     </div>
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li class="has-sub">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="fas fa-tachometer-alt"></i>Dashboard
                                     <span class="bot-line"></span>
                                 </a>
@@ -86,79 +86,79 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>eCommerce</a>
                             </li>
                             <li>
-                                <a href="frondend/table.html">
+                                <a href="frontend/table.html">
                                     <i class="fas fa-trophy"></i>
                                     <span class="bot-line"></span>Features</a>
                             </li>
                             <li class="has-sub">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="fas fa-copy"></i>
                                     <span class="bot-line"></span>Chức năng</a>
                                 <ul class="header3-sub-list list-unstyled">
                                     <li>
-                                        <a href="frondend/login.html">Foods</a>
+                                        <a href="frontend/login.html">Foods</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/register.html">Register</a>
+                                        <a href="frontend/register.html">Register</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/forget-pass.html">Forget Password</a>
+                                        <a href="frontend/forget-pass.html">Forget Password</a>
                                     </li>
 
 
                                     <!-- <li>
-                                        <a href="frondend/login.html">Login</a>
+                                        <a href="frontend/login.html">Login</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/register.html">Register</a>
+                                        <a href="frontend/register.html">Register</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/forget-pass.html">Forget Password</a>
+                                        <a href="frontend/forget-pass.html">Forget Password</a>
                                     </li> -->
                                 </ul>
                             </li>
                             <li class="has-sub">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="fas fa-desktop"></i>
                                     <span class="bot-line"></span>UI Elements</a>
                                 <ul class="header3-sub-list list-unstyled">
                                     <li>
-                                        <a href="frondend/button.html">Button</a>
+                                        <a href="frontend/button.html">Button</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/badge.html">Badges</a>
+                                        <a href="frontend/badge.html">Badges</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/tab.html">Tabs</a>
+                                        <a href="frontend/tab.html">Tabs</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/card.html">Cards</a>
+                                        <a href="frontend/card.html">Cards</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/alert.html">Alerts</a>
+                                        <a href="frontend/alert.html">Alerts</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/progress-bar.html">Progress Bars</a>
+                                        <a href="frontend/progress-bar.html">Progress Bars</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/modal.html">Modals</a>
+                                        <a href="frontend/modal.html">Modals</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/switch.html">Switchs</a>
+                                        <a href="frontend/switch.html">Switchs</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/grid.html">Grids</a>
+                                        <a href="frontend/grid.html">Grids</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/fontawesome.html">FontAwesome</a>
+                                        <a href="frontend/fontawesome.html">FontAwesome</a>
                                     </li>
                                     <li>
-                                        <a href="frondend/typo.html">Typography</a>
+                                        <a href="frontend/typo.html">Typography</a>
                                     </li>
                                 </ul>
                             </li>
@@ -199,7 +199,7 @@
                                     </div>
                                 </div>
                                 <div class="notifi__footer">
-                                    <a href="frondend/#">All notifications</a>
+                                    <a href="frontend/#">All notifications</a>
                                 </div>
                             </div>
                         </div>
@@ -208,33 +208,33 @@
                             <div class="setting-dropdown js-dropdown">
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="frondend/#">
+                                        <a href="frontend/#">
                                             <i class="zmdi zmdi-account"></i>Account</a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                        <a href="frondend/#">
+                                        <a href="frontend/#">
                                             <i class="zmdi zmdi-settings"></i>Setting</a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                        <a href="frondend/#">
+                                        <a href="frontend/#">
                                             <i class="zmdi zmdi-money-box"></i>Billing</a>
                                     </div>
                                 </div>
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="frondend/#">
+                                        <a href="frontend/#">
                                             <i class="zmdi zmdi-globe"></i>Language</a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                        <a href="frondend/#">
+                                        <a href="frontend/#">
                                             <i class="zmdi zmdi-pin"></i>Location</a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                        <a href="frondend/#">
+                                        <a href="frontend/#">
                                             <i class="zmdi zmdi-email"></i>Email</a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                        <a href="frondend/#">
+                                        <a href="frontend/#">
                                             <i class="zmdi zmdi-notifications"></i>Notifications</a>
                                     </div>
                                 </div>
@@ -243,41 +243,41 @@
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                 <div class="image">
-                                    <img src="frondend/images/icon/avatar-01.jpg" alt="Luna" />
+                                    <img src="frontend/images/icon/avatar-01.jpg" alt="Luna" />
                                 </div>
                                 <div class="content">
-                                    <a class="js-acc-btn" href="frondend/#">Luna</a>
+                                    <a class="js-acc-btn" href="frontend/#">Luna</a>
                                 </div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
                                         <div class="image">
-                                            <a href="frondend/#">
-                                                <img src="frondend/images/icon/avatar-01.jpg" alt=" Luna" />
+                                            <a href="frontend/#">
+                                                <img src="frontend/images/icon/avatar-01.jpg" alt=" Luna" />
                                             </a>
                                         </div>
                                         <div class="content">
                                             <h5 class="name">
-                                                <a href="frondend/#">Luna</a>
+                                                <a href="frontend/#">Luna</a>
                                             </h5>
                                             <span class="email">dathao280393@gmail.com</span>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="frondend/#">
+                                            <a href="frontend/#">
                                                 <i class="zmdi zmdi-account"></i>Account</a>
                                         </div>
                                         <div class="account-dropdown__item">
-                                            <a href="frondend/#">
+                                            <a href="frontend/#">
                                                 <i class="zmdi zmdi-settings"></i>Setting</a>
                                         </div>
                                         <div class="account-dropdown__item">
-                                            <a href="frondend/#">
+                                            <a href="frontend/#">
                                                 <i class="zmdi zmdi-money-box"></i>Billing</a>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a href="frondend/#">
+                                        <a href="frontend/#">
                                             <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
                                 </div>
@@ -294,8 +294,8 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="frondend/index.html">
-                            <img src="frondend/images/icon/logo-white.png" alt="CoolAdmin" />
+                        <a class="logo" href="frontend/index.html">
+                            <img src="frontend/images/icon/logo-white.png" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -309,94 +309,94 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a class="js-arrow" href="frondend/#">
+                            <a class="js-arrow" href="frontend/#">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                 <li>
-                                    <a href="frondend/index.html">Dashboard 1</a>
+                                    <a href="frontend/index.html">Dashboard 1</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/index2.html">Dashboard 2</a>
+                                    <a href="frontend/index2.html">Dashboard 2</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/index3.html">Dashboard 3</a>
+                                    <a href="frontend/index3.html">Dashboard 3</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/index4.html">Dashboard 4</a>
+                                    <a href="frontend/index4.html">Dashboard 4</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="frondend/chart.html">
+                            <a href="frontend/chart.html">
                                 <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
                         <li>
-                            <a href="frondend/table.html">
+                            <a href="frontend/table.html">
                                 <i class="fas fa-table"></i>Tables</a>
                         </li>
                         <li>
-                            <a href="frondend/form.html">
+                            <a href="frontend/form.html">
                                 <i class="far fa-check-square"></i>Forms</a>
                         </li>
                         <li>
-                            <a href="frondend/calendar.html">
+                            <a href="frontend/calendar.html">
                                 <i class="fas fa-calendar-alt"></i>Calendar</a>
                         </li>
                         <li>
-                            <a href="frondend/map.html">
+                            <a href="frontend/map.html">
                                 <i class="fas fa-map-marker-alt"></i>Maps</a>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="frondend/#">
+                            <a class="js-arrow" href="frontend/#">
                                 <i class="fas fa-copy"></i>Pages</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                 <li>
-                                    <a href="frondend/login.html">Login</a>
+                                    <a href="frontend/login.html">Login</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/register.html">Register</a>
+                                    <a href="frontend/register.html">Register</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/forget-pass.html">Forget Password</a>
+                                    <a href="frontend/forget-pass.html">Forget Password</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="frondend/#">
+                            <a class="js-arrow" href="frontend/#">
                                 <i class="fas fa-desktop"></i>UI Elements</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                 <li>
-                                    <a href="frondend/button.html">Button</a>
+                                    <a href="frontend/button.html">Button</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/badge.html">Badges</a>
+                                    <a href="frontend/badge.html">Badges</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/tab.html">Tabs</a>
+                                    <a href="frontend/tab.html">Tabs</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/card.html">Cards</a>
+                                    <a href="frontend/card.html">Cards</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/alert.html">Alerts</a>
+                                    <a href="frontend/alert.html">Alerts</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/progress-bar.html">Progress Bars</a>
+                                    <a href="frontend/progress-bar.html">Progress Bars</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/modal.html">Modals</a>
+                                    <a href="frontend/modal.html">Modals</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/switch.html">Switchs</a>
+                                    <a href="frontend/switch.html">Switchs</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/grid.html">Grids</a>
+                                    <a href="frontend/grid.html">Grids</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/fontawesome.html">Fontawesome Icon</a>
+                                    <a href="frontend/fontawesome.html">Fontawesome Icon</a>
                                 </li>
                                 <li>
-                                    <a href="frondend/typo.html">Typography</a>
+                                    <a href="frontend/typo.html">Typography</a>
                                 </li>
                             </ul>
                         </li>
@@ -440,7 +440,7 @@
                             </div>
                         </div>
                         <div class="notifi__footer">
-                            <a href="frondend/#">All notifications</a>
+                            <a href="frontend/#">All notifications</a>
                         </div>
                     </div>
                 </div>
@@ -449,33 +449,33 @@
                     <div class="setting-dropdown js-dropdown">
                         <div class="account-dropdown__body">
                             <div class="account-dropdown__item">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="zmdi zmdi-account"></i>Account</a>
                             </div>
                             <div class="account-dropdown__item">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="zmdi zmdi-settings"></i>Setting</a>
                             </div>
                             <div class="account-dropdown__item">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="zmdi zmdi-money-box"></i>Billing</a>
                             </div>
                         </div>
                         <div class="account-dropdown__body">
                             <div class="account-dropdown__item">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="zmdi zmdi-globe"></i>Language</a>
                             </div>
                             <div class="account-dropdown__item">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="zmdi zmdi-pin"></i>Location</a>
                             </div>
                             <div class="account-dropdown__item">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="zmdi zmdi-email"></i>Email</a>
                             </div>
                             <div class="account-dropdown__item">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="zmdi zmdi-notifications"></i>Notifications</a>
                             </div>
                         </div>
@@ -484,41 +484,41 @@
                 <div class="account-wrap">
                     <div class="account-item account-item--style2 clearfix js-item-menu">
                         <div class="image">
-                            <img src="frondend/images/icon/avatar-01.jpg" alt="Luna" />
+                            <img src="frontend/images/icon/avatar-01.jpg" alt="Luna" />
                         </div>
                         <div class="content">
-                            <a class="js-acc-btn" href="frondend/#">Luna</a>
+                            <a class="js-acc-btn" href="frontend/#">Luna</a>
                         </div>
                         <div class="account-dropdown js-dropdown">
                             <div class="info clearfix">
                                 <div class="image">
-                                    <a href="frondend/#">
-                                        <img src="frondend/images/icon/avatar-01.jpg" alt="Luna" />
+                                    <a href="frontend/#">
+                                        <img src="frontend/images/icon/avatar-01.jpg" alt="Luna" />
                                     </a>
                                 </div>
                                 <div class="content">
                                     <h5 class="name">
-                                        <a href="frondend/#">Luna</a>
+                                        <a href="frontend/#">Luna</a>
                                     </h5>
                                     <span class="email">dathao280393@gmail.com</span>
                                 </div>
                             </div>
                             <div class="account-dropdown__body">
                                 <div class="account-dropdown__item">
-                                    <a href="frondend/#">
+                                    <a href="frontend/#">
                                         <i class="zmdi zmdi-account"></i>Account</a>
                                 </div>
                                 <div class="account-dropdown__item">
-                                    <a href="frondend/#">
+                                    <a href="frontend/#">
                                         <i class="zmdi zmdi-settings"></i>Setting</a>
                                 </div>
                                 <div class="account-dropdown__item">
-                                    <a href="frondend/#">
+                                    <a href="frontend/#">
                                         <i class="zmdi zmdi-money-box"></i>Billing</a>
                                 </div>
                             </div>
                             <div class="account-dropdown__footer">
-                                <a href="frondend/#">
+                                <a href="frontend/#">
                                     <i class="zmdi zmdi-power"></i>Logout</a>
                             </div>
                         </div>
@@ -540,7 +540,7 @@
                                     <span class="au-breadcrumb-span">You are here:</span>
                                     <ul class="list-unstyled list-inline au-breadcrumb__list">
                                         <li class="list-inline-item active">
-                                            <a href="frondend/#">Home</a>
+                                            <a href="frontend/#">Home</a>
                                         </li>
                                         <li class="list-inline-item seprate">
                                             <span>/</span>
@@ -747,28 +747,28 @@
     </div>
 
     <!-- Jquery JS-->
-    <script src="frondend/vendor/jquery-3.2.1.min.js"></script>
+    <script src="frontend/vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
-    <script src="frondend/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="frondend/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="frontend/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="frontend/vendor/bootstrap-4.1/bootstrap.min.js"></script>
     <!-- Vendor JS       -->
-    <script src="frondend/vendor/slick/slick.min.js">
+    <script src="frontend/vendor/slick/slick.min.js">
     </script>
-    <script src="frondend/vendor/wow/wow.min.js"></script>
-    <script src="frondend/vendor/animsition/animsition.min.js"></script>
-    <script src="frondend/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    <script src="frontend/vendor/wow/wow.min.js"></script>
+    <script src="frontend/vendor/animsition/animsition.min.js"></script>
+    <script src="frontend/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
     </script>
-    <script src="frondend/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="frondend/vendor/counter-up/jquery.counterup.min.js">
+    <script src="frontend/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="frontend/vendor/counter-up/jquery.counterup.min.js">
     </script>
-    <script src="frondend/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="frondend/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="frondend/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="frondend/vendor/select2/select2.min.js">
+    <script src="frontend/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="frontend/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="frontend/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="frontend/vendor/select2/select2.min.js">
     </script>
 
     <!-- Main JS-->
-    <script src="frondend/js/main.js"></script>
+    <script src="frontend/js/main.js"></script>
 
 
     <!-- dhtmlx 8 -->

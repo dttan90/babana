@@ -35,12 +35,19 @@
 
     <!-- dtmlx 8 -->
     <link rel="stylesheet" href="<?php echo base_url('suite/codebase/suite.css?v=8.2.1'); ?>">
-    <link rel="stylesheet" href="<?php echo base_url('suite/common/index.css?v=8.2.1'); ?>">
 
-    <!-- template js -->
-    <script type="text/javascript" src="templatejs/jsFunctions.js"></script>
+    <!-- bootrap css -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css?v=6.4.2" media="all" rel="stylesheet" type="text/css">
 
     <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
         td {
             padding: 10px 15px !important;
         }
@@ -48,12 +55,186 @@
         th {
             padding: 10px 15px !important;
         }
+
+        #layout {
+            position: relative;
+            padding: 25px 20px;
+            min-height: 400px;
+        }
+
+        #sidebar {
+            width: 20%;
+            background: yellow;
+        }
+
+        #main {
+            position: absolute;
+            top: 25px;
+            left: 20%;
+            background: tomato;
+            width: 79%;
+        }
+
+        .sidebar-customer {
+            background-color: pink;
+            width: 100%;
+        }
+
+        .main {
+            padding: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+
+        .food-action-buttons {
+            width: 90% !important;
+            height: 60% !important;
+            position: relative;
+            top: -6px;
+        }
+
+        /* .btn-add-food {
+            width: 90%;
+            height: 35px;
+        } */
+
+        .dhx_demo-grid .print-button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: var(--dhx-font-size-normal) !important;
+            width: 40% !important;
+            height: 100% !important;
+            padding: 0;
+            color: white !important;
+        }
+
+        .dhx_demo-grid .edit-button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: var(--dhx-font-size-normal) !important;
+            width: 25% !important;
+            height: 80% !important;
+            padding: 0;
+            color: white !important;
+        }
+
+        .dhx_demo-grid .remove-button {
+            cursor: pointer;
+            color: white !important;
+            transition: all 0.3s ease;
+            font-size: var(--dhx-font-size-normal) !important;
+            width: 25% !important;
+            height: 80% !important;
+            padding: 0;
+        }
+
+        .dhx_demo-grid .detail-button {
+            cursor: pointer;
+            color: white !important;
+            transition: all 0.3s ease;
+            font-size: var(--dhx-font-size-normal) !important;
+            width: 100% !important;
+            height: 80% !important;
+            padding: 0;
+            color: white;
+        }
+
+        .dhx_demo-grid .detail-edit-button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: var(--dhx-font-size-normal) !important;
+            width: 45% !important;
+            height: 80% !important;
+            padding: 0;
+            color: white !important;
+        }
+
+        .dhx_demo-grid .detail-remove-button {
+            cursor: pointer;
+            color: white !important;
+            transition: all 0.3s ease;
+            font-size: var(--dhx-font-size-normal) !important;
+            width: 45% !important;
+            height: 80% !important;
+            padding: 0;
+        }
+
+        .dhx_demo-grid .detail-add-button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: var(--dhx-font-size-normal) !important;
+            width: 90% !important;
+            height: 80% !important;
+            padding: 0;
+            color: white !important;
+        }
+
+        .highlight-date {
+            color: #fff;
+        }
+
+        .highlight-date:after {
+            background-color: #ff5252;
+            opacity: 1;
+            z-index: -3;
+        }
+
+        .dhx-demo_grid-template {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .dhx-demo_grid-status {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 6px;
+            font-size: var(--dhx-font-size-small);
+        }
+
+        .dhx-demo_grid-status--done {
+            background-color: var(--dhx-color-success);
+        }
+
+        .dhx-demo_grid-status--delivered {
+            /* background-color: #0dcaf0!important; */
+            background-color: var(--dhx-color-primary);
+        }
+
+        .dhx-demo_grid-status--in-progress {
+            /* background-color: var(--dhx-color-primary); */
+            background-color: #ffc107 !important;
+        }
+
+        .dhx-demo_grid-status--not-started {
+            /* background-color: var(--dhx-color-danger); */
+            background-color: #6c757d !important;
+        }
+
+        .dhx-demo_grid-status--cancelled {
+            background-color: var(--dhx-color-danger);
+            /* background-color: #6c757d!important; */
+        }
+
+        .detail-btn {
+            width: 100% !important;
+            height: 80% !important;
+            padding: 0;
+            color: white;
+        }
     </style>
 
 </head>
 
-<body class="animsition">
-    <div class="page-wrapper">
+<body class="animsition" style="height: 100%; width: 100%;">
+    <div class="page-wrapper" style="height: 100%; width: 100%;">
         <!-- HEADER DESKTOP-->
         <header class="header-desktop3 d-none d-lg-block">
             <div class="section__content section__content--p35">
@@ -529,206 +710,20 @@
         <!-- END HEADER MOBILE -->
 
         <!-- PAGE CONTENT-->
-        <div class="page-content--bgf7">
-            <!-- BREADCRUMB-->
-            <section class="au-breadcrumb2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="au-breadcrumb-content">
-                                <div class="au-breadcrumb-left">
-                                    <span class="au-breadcrumb-span">You are here:</span>
-                                    <ul class="list-unstyled list-inline au-breadcrumb__list">
-                                        <li class="list-inline-item active">
-                                            <a href="frontend/#">Home</a>
-                                        </li>
-                                        <li class="list-inline-item seprate">
-                                            <span>/</span>
-                                        </li>
-                                        <li class="list-inline-item">Dashboard</li>
-                                    </ul>
-                                </div>
-                                <form class="au-form-icon--sm" action="" method="post">
-                                    <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas &amp; reports...">
-                                    <button class="au-btn--submit2" type="submit">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END BREADCRUMB-->
+        <div class="page-content--bgf7" style="height: 70%; ">
 
-            <!-- WELCOME-->
-            <section class="welcome p-t-10">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="title-4">Welcome back
-                                <span>Babana!</span>
-                            </h1>
-                            <hr class="line-seprate">
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END WELCOME-->
-
-            <!-- STATISTIC-->
-            <section class="statistic statistic2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-3">
-                            <div class="statistic__item statistic__item--green">
-                                <h2 class="number">10,368</h2>
-                                <span class="desc">members online</span>
-                                <div class="icon">
-                                    <i class="zmdi zmdi-account-o"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="statistic__item statistic__item--orange">
-                                <h2 class="number">388,688</h2>
-                                <span class="desc">items sold</span>
-                                <div class="icon">
-                                    <i class="zmdi zmdi-shopping-cart"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="statistic__item statistic__item--blue">
-                                <h2 class="number">1,086</h2>
-                                <span class="desc">this week</span>
-                                <div class="icon">
-                                    <i class="zmdi zmdi-calendar-note"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="statistic__item statistic__item--red">
-                                <h2 class="number">$1,060,386</h2>
-                                <span class="desc">total earnings</span>
-                                <div class="icon">
-                                    <i class="zmdi zmdi-money"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END STATISTIC-->
-
-            <section class="dhx_sample-container" style="height: 80%; position:sticky; top:50px;">
-                <div style="height: 100%; width: 100%" id="grid"></div>
-            </section>
-            <!-- DATA TABLE-->
-            <section class="p-t-20">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">data table</h3>
-                            <div class="table-data__tool">
-                                <div class="table-data__tool-left">
-                                    <div class="rs-select2--light rs-select2--md">
-                                        <select class="js-select2" name="property">
-                                            <option selected="selected">All Properties</option>
-                                            <option value="">Option 1</option>
-                                            <option value="">Option 2</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                    <div class="rs-select2--light rs-select2--sm">
-                                        <select class="js-select2" name="time">
-                                            <option selected="selected">Today</option>
-                                            <option value="">3 Days</option>
-                                            <option value="">1 Week</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                    <button class="au-btn-filter">
-                                        <i class="zmdi zmdi-filter-list"></i>filters</button>
-                                </div>
-                                <div class="table-data__tool-right">
-                                    <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                        <i class="zmdi zmdi-plus"></i>add item</button>
-                                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                                        <select class="js-select2" name="type">
-                                            <option selected="selected">Export</option>
-                                            <option value="">Option 1</option>
-                                            <option value="">Option 2</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                </div>
-                            </div>
+            <!-- -------------------------------------------------------------------------------------------
+                |
+                | layout
+                |
+             -->
+            <div class="container-fluid" style="height: 100%; width: 100%;">
+                <!-- component container -->
+                <div id="toolbar_container"></div>
+                <div style="height: calc(100% - 61px);; width:100%;" id="grid_container"></div>
+            </div>
 
 
-                            <div class="table-responsive table-responsive-data2">
-                                <table class="table table-data2">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </th>
-                                            <th>Id</th>
-                                            <th>Bàn</th>
-                                            <th>Giờ vào</th>
-                                            <th>Giờ ra</th>
-                                            <th>Tổng cộng</th>
-                                            <th>Trạng thái</th>
-                                            <th>Khuyến mãi</th>
-                                            <th>Ghi chú</th>
-                                            <th>Chi tiết</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-
-                                        foreach ($views as $item) {
-                                            echo '<tr class="tr-shadow">';
-                                            // check
-                                            echo '<td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>';
-                                            echo '<td>' . $item['bill_id'] . '</td>';
-                                            echo '<td><span class="block-email">' . $item['table_order_name'] . '</span></td>';
-                                            echo '<td class="desc">' . $item['date_check_in'] . '</td>';
-                                            echo '<td class="desc">' . $item['date_check_out'] . '</td>';
-
-                                            echo '<td><span class="status--process">' . $item['total'] . '</span></td>';
-                                            echo '<td>';
-                                            echo '<div class="rs-select2--dark rs-select2--sm rs-select2--dark2">';
-                                            echo '<select class="js-select2" name="type" id="status">';
-                                            echo '<option value="pending">Đang đợi</option>';
-                                            echo '<option value="done">Xong</option>';
-
-                                            echo '</select>';
-                                            echo '<div class="dropDownSelect2"></div>';
-                                            echo '</div>';
-                                            echo '</td>';
-
-                                            echo '<td><span class="status--process">' . $item['promotion_description'] . '</span></td>';
-                                            echo '<td class="desc">' . $item['note'] . '</td>';
-                                            echo '<td><button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="windows(\'description\')"><i class="zmdi zmdi-view-list"></i>Xem</button></td>';
-                                            echo '</tr>';
-                                        }
-
-
-                                        ?>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END DATA TABLE-->
 
             <!-- COPYRIGHT-->
             <section class="p-t-60 p-b-20">
@@ -747,8 +742,20 @@
 
     </div>
 
+    <!-- ----------------------------------------------------------------------------------------------------
+        |
+        | js libraries
+        |
+     -->
+
+    <script>
+
+    </script>
+
     <!-- Jquery JS-->
-    <script src="frontend/vendor/jquery-3.2.1.min.js"></script>
+    <!-- <script src="frontend/vendor/jquery-3.2.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
+
     <!-- Bootstrap JS-->
     <script src="frontend/vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="frontend/vendor/bootstrap-4.1/bootstrap.min.js"></script>
@@ -774,8 +781,14 @@
 
     <!-- dhtmlx 8 -->
     <script type="text/javascript" src="<?php echo base_url('suite/codebase/suite.js?v=8.2.1'); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('suite/common/data.js?v=8.2.1'); ?>"></script>
 
-   
+    <!-- bootrap js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> -->
+
+    <!-- template js -->
+    <script type="text/javascript" src="<?php echo base_url('templatejs/jsFunctions.js'); ?>"></script>
+
 
 </body>
 

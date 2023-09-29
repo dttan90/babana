@@ -5,21 +5,21 @@ namespace App\Models;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
 
-class BillDetailModel extends Model
+class UnitModel extends Model
 {
     protected $db;
-    protected $table      = 'bill_detail';
+    protected $table      = 'unit';
     protected $builder;
 
-    protected $primaryKey = 'bill_detail_id';
+    protected $primaryKey = 'unit_id';
 
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['bill_detail_id', 'count', 'price', 'status', 'bill_id', 'food_id', 'size_unit_code', 'note' ];
-    protected $fields = 'bill_detail_id, count, price, status, bill_id, food_id, size_unit_code, note';
+    protected $allowedFields = ['unit_id', 'unit_name', 'description'];
+    protected $fields = 'unit_id, unit_name, description';
 
     private $_insertBatch;
 

@@ -38,6 +38,9 @@ $routes->get('/testData', 'Home::testData');
 $routes->add('/getDataToAddForm', 'Home::getDataToAddForm');
 
 $routes->add('/imports', 'Home::imports');
+$routes->add('/printer', 'Home::printer');
+$routes->add('/getDetailDataToAdd', 'Home::getDetailDataToAdd');
+
 
 
 

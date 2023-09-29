@@ -12,6 +12,7 @@ use App\Models\TableOrderModel;
 use App\Models\AreaModel;
 use App\Models\PromotionModel;
 use App\Models\FoodModel;
+use App\Models\SizeUnitModel;
 
 // use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -108,6 +109,11 @@ class Home extends BaseController
     public function detailLoad()
     {
         $data = array();
+        $detailData = array();
+        $foodOptions = array();
+        $sizeUnitOptions = array();
+
+
         $request = \Config\Services::request();
         if ($request->is('get')) {
 
@@ -116,6 +122,7 @@ class Home extends BaseController
             $db = db_connect();
             $BillDetailModel = new BillDetailModel($db);
             $FoodModel = new FoodModel($db);
+            $SizeUnitModel = new SizeUnitModel($db);
 
             // get data
             $billDetailData = $BillDetailModel->readOptions(array('bill_id' => $bill_id), 'bill_detail_id');
@@ -124,27 +131,32 @@ class Home extends BaseController
                 $price = $billDetail->price;
                 $count = $billDetail->count;
                 $food_id = $billDetail->food_id;
+                $size_unit_code = $billDetail->size_unit_code;
                 $detail_total = $price * $count;
 
                 $foodItem = !empty($food_id) ? $FoodModel->readItem(array('food_id' => $food_id)) : array();
+                $sizeUnitItem = !empty($size_unit_code) ? $SizeUnitModel->readItem(array('size_unit_code' => $size_unit_code)) : array();
 
-                $data[] = array(
-                    'detail_food_description' => !empty($foodItem) ? $foodItem->description : '',
+                $detailData[] = array(
+                    'detail_food_name' => !empty($foodItem) ? ($foodItem->food_id . "__" . $foodItem->food_name ) : '',
                     'detail_count' => $billDetail->count,
                     'detail_price' => $price,
                     'detail_total' => $detail_total,
                     'detail_bill_id' => $billDetail->bill_id,
+                    'detail_size_unit_code' => !empty($sizeUnitItem) ? $sizeUnitItem->size_unit_code . "__" . $sizeUnitItem->description : '',
+
                     'detail_note' => $billDetail->note
                 );
             }
 
-            for ($i = 0; $i < 3; $i++) {
-                $data[] = array(
+            for ($i = 0; $i < 9; $i++) {
+                $detailData[] = array(
                     'detail_food_name' => "",
                     'detail_count' => "",
                     'detail_price' => "",
                     'detail_total' => "",
                     'detail_bill_id' => "",
+                    'detail_size_unit_code' => "",
                     'detail_note' => ""
                 );
             }
@@ -152,6 +164,22 @@ class Home extends BaseController
             // close db
             $db->close();
         }
+
+        $foodData = $FoodModel->readOptions(array('status' => 1), 'food_id');
+        if (!empty($foodData)) {
+            foreach ($foodData as $value) {
+                $foodOptions[] = $value->food_id . "__" . $value->food_name;
+            }
+        }
+
+        $sizeUnitData = $SizeUnitModel->readAll('size_unit_code');
+        foreach ($sizeUnitData as $value) {
+            $sizeUnitOptions[] = $value->size_unit_code . "__" . $value->description;
+        }
+
+        $data['detailData'] = $detailData;
+        $data['foodOptions'] = $foodOptions;
+        $data['sizeUnitOptions'] = $sizeUnitOptions;
 
         // $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         return json_encode($data, JSON_UNESCAPED_UNICODE);
@@ -188,11 +216,13 @@ class Home extends BaseController
         $tableOptions = array();
         $promotionOptions = array();
         $areaOptions = array();
+        $foodOtions = array();
 
         $db = db_connect();
         $TableOrderModel = new TableOrderModel($db);
         $PromotionModel = new PromotionModel($db);
         $AreaModel = new AreaModel($db);
+        $FoodModel = new FoodModel($db);
 
         $tableOrderData = $TableOrderModel->readAll('table_order_name');
         if (!empty($tableOrderData)) {
@@ -215,10 +245,19 @@ class Home extends BaseController
             }
         }
 
+        $foodData = $FoodModel->readOptions(array('status' => 1), 'food_name');
+        if (!empty($foodData)) {
+            foreach ($foodData as $value) {
+                $foodOtions[] = $value->food_id . "__" . $value->food_name;
+            }
+        }
+
         $data['dataset'] = $this->load();
         $data['tableOptions'] = $tableOptions;
         $data['promotionOptions'] = $promotionOptions;
         $data['areaOptions'] = $areaOptions;
+        $data['foodOtions'] = $foodOtions;
+
 
         $db->close();
 
@@ -316,8 +355,8 @@ class Home extends BaseController
         $foodData = $FoodModel->readOptions(array('status' => 1), 'food_name');
 
         $foodDataSet = array();
-        if (!empty($foodData) ) {
-            foreach ($foodData as $food ) {
+        if (!empty($foodData)) {
+            foreach ($foodData as $food) {
                 $foodDataSet[] = array(
                     'food_name' => $food->food_name,
                     'food_price' => $food->price,
@@ -326,10 +365,8 @@ class Home extends BaseController
                     'food_note' => ''
                 );
             }
-           
-
         }
-        
+
 
         $data['tableOptions'] = $tableOptions;
         $data['promotionOptions'] = $promotionOptions;
@@ -364,6 +401,52 @@ class Home extends BaseController
         print_r($allDataInSheet);
     }
 
+    // dữ liệu in hóa đơn
+    public function printer()
+    {
+        $data = array();
+
+        // get bill id
+        $bill_id = $this->request->getVar('bill_id');
+
+        $data['bill_id'] = $bill_id;
+
+
+        return view('printer', $data);
+    }
+
+    public function getDetailDataToAdd()
+    {
+        // init
+        $data = array();
+        $foodData = array();
+        $sizeUnitData = array();
+
+        $request = \Config\Services::request();
+        if ($request->is('get')) {
+
+            $detail_food_name = $this->request->getVar('detail_food_name');
+            $detailArr = (!empty($detail_food_name) && strpos($detail_food_name, "__") !== false) ? explode("__", $detail_food_name) : array();
+            $food_id = isset($detailArr[0]) ? (int)$detailArr[0] : '';
+
+            if (!empty($food_id)) {
+
+                // connect and model
+                $db = db_connect();
+                $FoodModel = new FoodModel($db);
+
+                $foodData = (array)$FoodModel->readItem(array('food_id' => $food_id));
+                
+            }
+        }
+
+        $data = array(
+            'foodData' => $foodData
+        );
+
+        return json_encode($data, JSON_UNESCAPED_UNICODE);
+
+    }
 
 
 
