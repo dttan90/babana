@@ -1,25 +1,42 @@
 <?php
 
 namespace App\Models;
-
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
 
-class BillDetailModel extends Model
+class FoodSizeModel extends Model
 {
     protected $db;
-    protected $table      = 'bill_detail';
+    protected $table      = 'food_size';
+
     protected $builder;
 
-    protected $primaryKey = 'bill_detail_id';
+    protected $primaryKey = 'food_size_id';
 
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['bill_detail_id', 'count', 'price', 'status', 'bill_detail_total', 'size_unit_code','bill_id', 'food_id',  'note' ];
-    protected $fields = 'bill_detail_id, count, price, status, bill_detail_total, size_unit_code, bill_id, food_id, note';
+    protected $allowedFields = ['food_size_id', 'price', 'promotion_price', 'description', 'food_id', 'size_unit_code'];
+    protected $fields = 'food_size_id, price, promotion_price, description, food_id, size_unit_code, size_unit_code';
+
+    // Validation
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
+
+    // Callbacks
+    protected $allowCallbacks = true;
+    protected $beforeInsert   = [];
+    protected $afterInsert    = [];
+    protected $beforeUpdate   = [];
+    protected $afterUpdate    = [];
+    protected $beforeFind     = [];
+    protected $afterFind      = [];
+    protected $beforeDelete   = [];
+    protected $afterDelete    = [];
 
     private $_insertBatch;
 
@@ -42,12 +59,15 @@ class BillDetailModel extends Model
         return $this->builder->countAll();
     }
 
-    public function readAll() 
+    public function readAll($col = null) 
     {
         // get: Lấy tất cả thông tin liên quan truy vấn database
         // getResult: trả về kết quả truy vấn
+        if ($col != null) 
+            $this->builder->orderBy($col, 'desc');
         return $this->builder->select($this->fields)->get()->getResult();
     }
+
 
     public function readItem($where) 
     {
@@ -64,7 +84,7 @@ class BillDetailModel extends Model
     }
 
     public function create($data)
-    {
+	{
         // Cách 1: Có thể truyền dữ liệu bằng phương thức: $this->builder->set('name', $name); Sau đó sử dụng $this->builder->insert();
         // cách 2: truyền vào mảng data cần insert
         return $this->builder->insert($data);
@@ -77,7 +97,7 @@ class BillDetailModel extends Model
     }
 
     public function edit($where, $data)
-    {
+	{
         $this->builder->where($where);
         return $this->builder->update($data);
     }
@@ -90,11 +110,10 @@ class BillDetailModel extends Model
 
     public function isAlreadyExist($where)
     {
-        $this->builder->selectCount('bill_detail_id');
+        $this->builder->selectCount('food_size_id');
         $this->builder->where($where);
-        return (($this->builder->get()->getResult()[0]->bill_detail_id) > 0) ? true : false;   
+        return (($this->builder->get()->getResult()[0]->food_size_id) > 0) ? true : false;   
     }
-
 
 
 }

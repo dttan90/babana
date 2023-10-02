@@ -13,6 +13,7 @@ use App\Models\AreaModel;
 use App\Models\PromotionModel;
 use App\Models\FoodModel;
 use App\Models\SizeUnitModel;
+use App\Models\FoodSizeModel;
 
 // use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -42,7 +43,7 @@ class Home extends BaseController
         $validation =  \Config\Services::validation();
         // $cache = \Config\Services::cache();
 
-
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
     }
 
     public function index()
@@ -139,11 +140,12 @@ class Home extends BaseController
 
                 $detailData[] = array(
                     'detail_food_name' => !empty($foodItem) ? ($foodItem->food_id . "__" . $foodItem->food_name) : '',
+                    'detail_size_unit_code' => !empty($sizeUnitItem) ? $sizeUnitItem->size_unit_code . "__" . $sizeUnitItem->description : '',
                     'detail_count' => $billDetail->count,
                     'detail_price' => $price,
                     'detail_total' => $detail_total,
                     'detail_bill_id' => $billDetail->bill_id,
-                    'detail_size_unit_code' => !empty($sizeUnitItem) ? $sizeUnitItem->size_unit_code . "__" . $sizeUnitItem->description : '',
+                    
 
                     'detail_note' => $billDetail->note
                 );
@@ -152,11 +154,12 @@ class Home extends BaseController
             for ($i = 0; $i < 9; $i++) {
                 $detailData[] = array(
                     'detail_food_name' => "",
+                    'detail_size_unit_code' => "1:M__Ly size M",
                     'detail_count' => "",
                     'detail_price' => "",
                     'detail_total' => "",
                     'detail_bill_id' => "",
-                    'detail_size_unit_code' => "1:M__Ly size M",
+                    
                     'detail_note' => ""
                 );
             }
@@ -308,6 +311,9 @@ class Home extends BaseController
         return $status;
     }
 
+    /**
+     * *************************************** Hàm lấy dữ liệu cho thêm mới đơn hàng  ********************************
+     */
     public function getDataToAddForm()
     {
         // init
@@ -315,13 +321,17 @@ class Home extends BaseController
         $tableOptions = array();
         $promotionOptions = array();
         $areaOptions = array();
+        $sizeUnitOptions = array();
+        $foodDataSet = array();
 
+        // connect and model
         $db = db_connect();
         $TableOrderModel = new TableOrderModel($db);
         $PromotionModel = new PromotionModel($db);
         $AreaModel = new AreaModel($db);
         $FoodModel = new FoodModel($db);
         $SizeUnitModel = new SizeUnitModel($db);
+        $FoodSizeModel = new FoodSizeModel($db);
 
         $tableOrderData = $TableOrderModel->readAll('table_order_name');
         if (!empty($tableOrderData)) {
@@ -353,21 +363,33 @@ class Home extends BaseController
             }
         }
 
+        $sizeUnitData = $SizeUnitModel->readAll('size_unit_code');
+        foreach ($sizeUnitData as $value) {
+            $sizeUnitOptions[] = $value->size_unit_code . "__" . $value->description;
+        }
+
         $foodData = $FoodModel->readOptions(array('status' => 1), 'food_id');
-
-        $foodDataSet = array();
         if (!empty($foodData)) {
-
             foreach ($foodData as $food) {
 
-                $size_unit_code = $food->size_unit_code;
-                $sizeUnitItem = !empty($size_unit_code) ? $SizeUnitModel->readItem(array('size_unit_code' => $size_unit_code)) : array();
+                $food_id = $food->food_id;
+                $catalogy_id = $food->catalogy_id;
+                $food_size_unit_code = $catalogy_id == 1 ? '1:M__Ly size M' : '';
+                $promotion_price = 0;
+                $price = 0;
+                if (!empty($food_size_unit_code)) {
+                    $foodSizeItem = $FoodSizeModel->readItem(array('food_id' => $food_id, 'size_unit_code' => '1:M'));
+                    $promotion_price = !empty($foodSizeItem) ? $foodSizeItem->promotion_price : 0;
+                    $price = !empty($foodSizeItem) ? $foodSizeItem->price : 0;
+                    if ($promotion_price > 0 ) {
+                        $price = $promotion_price;
+                    }
+                }
 
-                $size_unit_description = !empty($sizeUnitItem) ? $sizeUnitItem->description : '';
                 $foodDataSet[] = array(
                     'food_name' => $food->food_id . '__' . $food->food_name,
-                    'food_size_unit_code' => $food->size_unit_code . '__' . $size_unit_description ,
-                    'food_price' => $food->price,
+                    'food_size_unit_code' => $food_size_unit_code,
+                    'food_price' => $price,
                     'food_count' => 1,
                     // 'food_total' => ($food->price * 1),
                     'food_note' => ''
@@ -375,10 +397,10 @@ class Home extends BaseController
             }
         }
 
-
         $data['tableOptions'] = $tableOptions;
         $data['promotionOptions'] = $promotionOptions;
         $data['areaOptions'] = $areaOptions;
+        $data['sizeUnitOptions'] = $sizeUnitOptions;
 
         $data['foodDataSet'] = $foodDataSet;
 
@@ -426,38 +448,45 @@ class Home extends BaseController
     public function getDetailDataToAdd()
     {
         // init
-        $data = array();
-        $foodData = array();
-        $sizeUnitData = array();
+        $price = 0;
 
         $request = \Config\Services::request();
         if ($request->is('get')) {
 
             $detail_food_name = $this->request->getVar('detail_food_name');
-            $detailArr = (!empty($detail_food_name) && strpos($detail_food_name, "__") !== false) ? explode("__", $detail_food_name) : array();
-            $food_id = isset($detailArr[0]) ? (int)$detailArr[0] : '';
+            $detail_size_unit_code = $this->request->getVar('detail_size_unit_code');
 
-            if (!empty($food_id)) {
+            $food_id = (!empty($detail_food_name) && strpos($detail_food_name, "__") !== false) ? explode("__", $detail_food_name)[0] : 0;
+            $size_unit_code = (!empty($detail_size_unit_code) && strpos($detail_size_unit_code, "__") !== false) ? explode("__", $detail_size_unit_code)[0] : 0;
+            
+
+            if (!empty($food_id) && !empty($size_unit_code) ) {
 
                 // connect and model
                 $db = db_connect();
-                $FoodModel = new FoodModel($db);
+                $FoodSizeModel = new FoodSizeModel($db);
 
-                $foodData = (array)$FoodModel->readItem(array('food_id' => $food_id));
+                $where = ['food_id' => $food_id, 'size_unit_code' => $size_unit_code];
+                if ($FoodSizeModel->isAlreadyExist($where) ) {
+                    $foodSizeData = $FoodSizeModel->readItem($where);
+                    if (!empty($foodSizeData) ) {
+                        $promotion_price = $foodSizeData->promotion_price;
+                        $price = ($promotion_price > 0 ) ? $promotion_price : $foodSizeData->price;
+                    }
+                }
+                
             }
         }
 
-        $data = array(
-            'foodData' => $foodData
-        );
-
-        return json_encode($data, JSON_UNESCAPED_UNICODE);
+        return json_encode(['price' => $price], JSON_UNESCAPED_UNICODE);
     }
 
     public function saveOrder()
     {
         $status = false;
         $message = 'Đơn hàng chưa lưu';
+
+        // $data = '{"formData":{"table_order_name":"3","area_id":"1","promotion_description":"","count_orders":1,"total":"16,000","sum_orders":1},"gridData":[{"detail_food_name_add":"2__Trà+sữa+trân+châu+đường+đen","detail_size_unit":"1:M__Ly+size+M","detail_price_add":"16000","detail_count_add":1,"detail_total_add":16000,"detail_note_add":"","id":"u1696221244600"}]}';
 
         $request = \Config\Services::request();
         if ($request->is('post')) {
@@ -470,12 +499,18 @@ class Home extends BaseController
              * save thông tin chung đơn hàng
              */
 
-            $formData = $this->request->getVar('formData');
+            $data = $this->request->getVar('data');
+            $data = json_decode($data, true);
+            // print_r($formData); exit();
+
+            $formData = $data['formData'];
+            $gridData = $data['gridData'];
+
 
             $table_id = $formData['table_order_name'];
             $promotion_id = $formData['promotion_description'];
             $count_orders = $formData['count_orders'];
-            $total = $formData['total'];
+            $total = (int)str_replace(",", "", $formData['total']);
             $sum_orders = $formData['sum_orders'];
             // save
             $formSave = array(
@@ -500,30 +535,30 @@ class Home extends BaseController
                  * save chi tiết đơn hàng
                  */
 
-                $gridData = $this->request->getVar('gridData');
+                // $gridData = $this->request->getVar('gridData');
                 foreach ($gridData as $item) {
 
-                    $count = is_int($item['detail_count_add']) ? (int)$item['detail_count_add'] : 0; 
-                    $price = is_int($item['detail_price_add']) ? (int)$item['detail_price_add'] : 0;
-                    
-                    $bill_detail_total = is_int($item['detail_total_add']) ? (int)$item['detail_total_add'] : 0;
-                    $size_unit_code = (strpos($item['food_size_unit_code'], "__") !== false) ? explode("__", $item['food_size_unit_code'])[0] : '';
-                    $bill_detail_description = $item['food_note'];
+                    $count = $item['detail_count_add'];
+                    $price = $item['detail_price_add'];
 
-                    $food_id = (strpos($item['food_name'], "__") !== false) ? explode("__", $item['food_name'])[0] : 0;
+                    $bill_detail_total = is_int($item['detail_total_add']) ? (int)$item['detail_total_add'] : 0;
+                    $size_unit_code = (strpos($item['detail_size_unit'], "__") !== false) ? explode("__", $item['detail_size_unit'])[0] : '';
+                    $bill_detail_description = $item['detail_note_add'];
+
+                    $food_id = (strpos($item['detail_food_name_add'], "__") !== false) ? explode("__", $item['detail_food_name_add'])[0] : 0;
                     $food_id = (int)$food_id;
 
                     // check data
-                    if ($count == 0 ) {
-                        $message = 'Số lượng của sản phẩm ' . $item['food_name'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật' ;
+                    if ($count == 0) {
+                        $message = 'Số lượng của sản phẩm ' . $item['detail_food_name_add'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật';
                     } else if ($price == 0) {
-                        $message = 'Giá của sản phẩm ' . $item['food_name'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật' ;
-                    } else if ($food_id == 0 ) {
-                        $message = 'Mã của sản phẩm ' . $item['food_name'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật' ;
-                    } else if ($bill_detail_total == 0 ) {
-                        $message = 'Tổng tiền của sản phẩm ' . $item['food_name'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật' ;
-                    } else if ($bill_detail_total == 0 ) {
-                        $message = 'Tổng tiền của sản phẩm ' . $item['food_name'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật' ;
+                        $message = 'Giá của sản phẩm ' . $item['detail_food_name_add'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật';
+                    } else if ($food_id == 0) {
+                        $message = 'Mã của sản phẩm ' . $item['detail_food_name_add'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật';
+                    } else if ($bill_detail_total == 0) {
+                        $message = 'Tổng tiền của sản phẩm ' . $item['detail_food_name_add'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật';
+                    } else if ($bill_detail_total == 0) {
+                        $message = 'Tổng tiền của sản phẩm ' . $item['detail_food_name_add'] . ' bằng 0. Kiểm tra lại đơn hàng hoặc liên hệ Kỹ thuật';
                     } else {
                         $where = array('bill_id' => $bill_id, 'food_id' => $food_id);
                         $billDetailSave = array(
@@ -541,8 +576,8 @@ class Home extends BaseController
                         // Nếu mà sản phẩm đã có trong bill id thì: lấy sản phẩm đã có này cộng thêm sản phẩm chuẩn bị thêm vào hệ thống. 
                         // Sau đó xóa dữ liệu đã tồn tại này đi
                         // Rồi mới thêm vào trở lại
-                        if ($BillDetailModel->isAlreadyExist($where) ) {
-                            
+                        if ($BillDetailModel->isAlreadyExist($where)) {
+
                             // lấy dữ liệu tồn tại này
                             $billDetailItem = $BillDetailModel->readItem($where);
                             $count_new = $count + $billDetailItem->count;
@@ -554,12 +589,11 @@ class Home extends BaseController
                             // cập nhật lại count và total của sản phẩm
                             $billDetailSave['count'] = $count_new;
                             $billDetailSave['bill_detail_total'] = $bill_detail_total_new;
-
                         }
 
                         // thêm dữ liệu vào hệ thống
                         $result = $BillDetailModel->create($billDetailSave);
-                        if (!$result ) {
+                        if (!$result) {
                             // xóa bỏ dữ liệu đã lưu trước đó
                             $BillModel->del(array('bill_id' => $bill_id));
                             $BillDetailModel->del(array('bill_id' => $bill_id));
@@ -572,10 +606,7 @@ class Home extends BaseController
                             $status = true;
                             $message = 'Đơn hàng đã tạo thành công';
                         }
-                        
                     }
- 
-
                 }
             }
         }
@@ -588,6 +619,8 @@ class Home extends BaseController
     {
         $area_id = '';
         $area_name = '';
+        $status = false;
+        $message = 'Không lấy được Khu vực của Bàn đã chọn';
 
         $request = \Config\Services::request();
         if ($request->is('post')) {
@@ -595,21 +628,69 @@ class Home extends BaseController
             // get and set form data
             $table_id = $this->request->getVar('table_id');
             if (!empty($table_id)) {
+
                 $db = db_connect();
                 $TableOrderModel = new TableOrderModel($db);
                 $AreaModel = new AreaModel($db);
+                $BillModel = new BillModel($db);
 
                 $tableItem = $TableOrderModel->readItem(array('table_id' => $table_id));
-                $area_id = !empty($tableItem) ? $tableItem->area_id : '';
 
-                $areaItem = $AreaModel->readItem(array('area_id' => $area_id));
-                $area_name = !empty($areaItem) ? $areaItem->area_name : '';
+                // lấy các bàn có trạng thái Delivered và In-progress
+                $tableList = [];
+                $billData = $BillModel->readOptionsIn('status', ['Delivered', 'In-progress']);
+                foreach($billData as $bill ) {
+                    $tableList[] = $bill->table_id;
+                }
+
+                // check 
+                if (in_array($table_id, $tableList) ) {
+                    $table_order_name = !empty($tableItem) ? $tableItem->table_order_name : '';
+                    $message = "Bàn $table_order_name đã được đặt chổ";
+                } else {
+
+                    $area_id = !empty($tableItem) ? $tableItem->area_id : '';
+                    $areaItem = $AreaModel->readItem(array('area_id' => $area_id));
+                    $area_name = !empty($areaItem) ? $areaItem->area_name : '';
+                    $status = true;
+                }
+                
             }
         }
 
-        return json_encode(array('area_id' => $area_id, 'area_name' => $area_name), JSON_UNESCAPED_UNICODE);
+        return json_encode(['status' => $status, 'message' => $message, 'data' => ['area_id' => $area_id, 'area_name' => $area_name] ], JSON_UNESCAPED_UNICODE);
     }
 
+    public function getFoodPrice()
+    {
+        $price = 0;
+        $promotion_price = 0;
+
+        $request = \Config\Services::request();
+        if ($request->is('post')) {
+
+            // get and set form data
+            $food_name = $this->request->getVar('food_name');
+            $food_size_unit_code = $this->request->getVar('food_size_unit_code');
+            if (!empty($food_name) && !empty($food_size_unit_code)) {
+                $db = db_connect();
+                $FoodSizeModel = new FoodSizeModel($db);
+
+                $food_id = (strpos($food_name, "__" ) !== false) ? explode("__", $food_name)[0] : 0;
+                $size_unit_code = (strpos($food_size_unit_code, "__" ) !== false) ? explode("__", $food_size_unit_code)[0] : 0;
+
+                $foodSizeItem = $FoodSizeModel->readItem(array('food_id' => $food_id, 'size_unit_code' => $size_unit_code));
+                if (!empty($foodSizeItem) ) {
+                    $promotion_price = $foodSizeItem->promotion_price;
+                    $price = ($promotion_price > 0 ) ? $promotion_price : $foodSizeItem->price;
+                }
+                
+            }
+        }
+
+        return json_encode(array('price' => $price), JSON_UNESCAPED_UNICODE);
+    }
+    
 
 
 

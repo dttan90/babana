@@ -65,6 +65,15 @@ class BillModel extends Model
         return $this->builder->get()->getResult()[0];
     }
 
+    public function readOptionsIn($col, $where) 
+    {
+        $this->builder->select('*');
+        $this->builder->whereIn($col, $where);
+        return $this->builder->get()->getResult();
+    }
+
+    
+
     public function readOptions($where, $col = null) 
     {
         $this->builder->where($where);
@@ -101,9 +110,9 @@ class BillModel extends Model
 
     public function isAlreadyExist($where)
     {
-        $this->builder->selectCount('id');
+        $this->builder->selectCount('bill_id');
         $this->builder->where($where);
-        return (($this->builder->get()->getResult()[0]->id) > 0) ? true : false;   
+        return (($this->builder->get()->getResult()[0]->bill_id) > 0) ? true : false;   
     }
 
 

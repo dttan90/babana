@@ -42,6 +42,8 @@ $routes->add('/printer', 'Home::printer');
 $routes->add('/getDetailDataToAdd', 'Home::getDetailDataToAdd');
 $routes->add('/saveOrder', 'Home::saveOrder');
 $routes->add('/getAreaId', 'Home::getAreaId');
+$routes->add('/getFoodPrice', 'Home::getFoodPrice');
+
 
 
 

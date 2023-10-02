@@ -18,8 +18,8 @@ class FoodModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['food_name', 'price', 'promotion_price', 'description', 'status', 'catalogy_id', 'size_unit_code' ];
-    protected $fields = 'food_name, price, promotion_price, description, status, catalogy_id, size_unit_code';
+    protected $allowedFields = ['food_id', 'food_name', 'description', 'status', 'catalogy_id' ];
+    protected $fields = 'food_id, food_name, description, status, catalogy_id';
 
     // Validation
     protected $validationRules      = [];
